@@ -10,12 +10,11 @@
 	$from = $_POST['from'];
 	$where = $_POST['where'];
 	$s = explode(",", $select);
-	$result =$conn->prepare("SELECT DISTINCT ? FROM ? WHERE ?");
-	$result->bind_param("sss", $select, $from, $where);
-	$result->execute();
+	$sql = "SELECT DISTINCT ".$select." FROM ".$from." WHERE ".$where;
+	$result = mysqli_query($conn, $sql);
 	if ($result)
 	{
-		$row = $result->fetch_all();
+		$row = mysqli_fetch_all($result);
 		for($k = 0;$k < count($row); $k = $k+1)
 		{
 			echo $s[$k]." ";

@@ -9,12 +9,11 @@
 	$select = $_POST['select'];
 	$from = $_POST['from'];
 	$s = explode(",", $select);
-	$result =$conn->prepare("SELECT ? FROM ?");
-	$result->bind_param("ss", $select, $from);
-	$result->execute();
+	$sql = "SELECT ".$select." FROM ".$from;
+	$result = mysqli_query($conn, $sql);
 	if ($result)
 	{
-		$row = $result->fetch_all();
+		$row = mysqli_fetch_all($result);
 		for($k = 0;$k < count($row); $k = $k+1)
 		{
 			echo $s[$k]." ";

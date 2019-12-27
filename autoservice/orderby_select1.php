@@ -11,12 +11,11 @@
 	$where = $_POST['where'];
 	$orderby = $_POST['orderby'];
 	$s = explode(",", $select);
-	$result =$conn->prepare("SELECT ? FROM ? WHERE ? ORDER BY ?");
-	$result->bind_param("ssss", $select, $from, $where, $orderby);
-	$result->execute();
+	$sql = "SELECT ".$select." FROM ".$from. " WHERE ".$where." ORDER BY ".$orderby;
+	$result = mysqli_query($conn, $sql);
 	if ($result)
 	{
-		$row = $result->fetch_all();
+		$row = mysqli_fetch_all($result);
 		for($k = 0;$k < count($row); $k = $k+1)
 		{
 			echo $s[$k]." ";

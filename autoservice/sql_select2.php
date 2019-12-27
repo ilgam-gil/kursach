@@ -12,13 +12,11 @@
 	$s = explode(",", $select);
 	$f = explode(",", $from);
 	$w = explode("=", $where);
-	$result =$conn->prepare("SELECT ?.?, ?.? FROM ? WHERE ?.? = ?.?");
-	$result->bind_param("sssssssss", $f[0], $s[0], $f[1], $s[1], $from, $f[0], $w[0], $f[1], $w[1]);
-	$result->execute();
-	$result = $result->get_result();
+	$sql = "SELECT ".$f[0].".".$s[0].",".$f[1].".".$s[1]." FROM ".$from. " WHERE ".$f[0].".".$w[0]."=".$f[1].".".$w[1];
+	$result = mysqli_query($conn, $sql);
 	if ($result)
 	{
-		$row = $result->fetch_all();
+		$row = mysqli_fetch_all($result);
 		for($k = 0;$k < count($row); $k = $k+1)
 		{
 			echo $s[$k]." ";
