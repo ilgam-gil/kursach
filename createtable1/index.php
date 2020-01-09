@@ -2,7 +2,7 @@
 	$servername = "localhost";
 	$dbname = "autoservice";
 	$username = "root";
-	$password = "";
+	$password = "zaO0pU4F2UeejVf";
 	set_time_limit(600);
 	
 	$conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -17,8 +17,9 @@
 	fio text NOT NULL,
 	adress text NOT NULL,
 	email_adress char(50) NOT NULL,
-	password text NOT NULL,
-	dtime timestamp)";
+	password varchar(255) NOT NULL,
+	dtime timestamp,
+	privilege integer DEFAULT 0)";
 	
 	if (mysqli_query($conn, $sql))
 	{
@@ -87,7 +88,8 @@
 				{
 					$ttime[1] = 12;
 				}
-				$sql = "INSERT INTO tb1 (fio, adress, email_adress, password, dtime) VALUES ('$tok[0]', '$tok[1]', '$tok[2]', '$tok[3]', '$ttime[3]-$ttime[1]-$ttime[2] $ttime[4]')";
+				$pass = md5($tok[3]);
+				$sql = "INSERT INTO tb1 (fio, adress, email_adress, password, dtime) VALUES ('$tok[0]', '$tok[1]', '$tok[2]', '$pass', '$ttime[3]-$ttime[1]-$ttime[2] $ttime[4]')";
 				if (mysqli_query($conn, $sql))
 				{
 					echo "Record created<br />";
@@ -148,7 +150,8 @@
 				{
 					$ttime[1] = 12;
 				}
-				$sql = "INSERT INTO tb1 (fio, adress, email_adress, password, dtime) VALUES ('$tok[0]', '$tok[1], $tok[2]', '$tok[3]', '$tok[4]', '$ttime[3]-$ttime[1]-$ttime[2] $ttime[4]')";
+				$pass = md5($tok[4]);
+				$sql = "INSERT INTO tb1 (fio, adress, email_adress, password, dtime) VALUES ('$tok[0]', '$tok[1], $tok[2]', '$tok[3]', '$pass', '$ttime[3]-$ttime[1]-$ttime[2] $ttime[4]')";
 				if (mysqli_query($conn, $sql))
 				{
 					echo "Record created<br />";

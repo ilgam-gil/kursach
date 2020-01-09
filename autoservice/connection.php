@@ -4,16 +4,16 @@ $dbname = 'autoservice';
 if ($_SESSION['privilege'] === 1)
 {
 	$username = 'admin';
-	$password = '12345';
+	$password = 'zaO0pU4F2UeejVfO';
 }
 else if ($_SESSION['privilege'] === 2)
 {
 	$username = 's_user';
-	$password = '12345';
+	$password = 'olVESJ9ul54ZUtWd';
 }
 else if ($_SESSION['privilege'] === 3)
 {
 	$username = 'user';
-	$password = '12345';
+	$password = 'rUaJESYaWYoIcj8j';
 }
 ?>

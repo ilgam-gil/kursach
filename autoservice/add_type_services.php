@@ -5,7 +5,6 @@
 		header('location: index.php');
 	}
 	require_once 'connection.php';
-	
 	$conn = new mysqli($servername, $username, $password, $dbname);
 	$result =$conn->prepare("INSERT INTO type_services VALUES (NULL, ?, ?, ?)");
 	$result->bind_param("sss", $_POST['name_type_service'], $_POST['price_type_service'], $_POST['type_service_description']);

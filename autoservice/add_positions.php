@@ -5,7 +5,6 @@
 		header('location: index.php');
 	}
 	require_once 'connection.php';
-	
 	$conn = new mysqli($servername, $username, $password, $dbname);
 	$result =$conn->prepare("INSERT INTO positions VALUES (NULL, ?, ?)");
 	$result->bind_param("ss", $_POST['name_position'], $_POST['classification_lvl']);

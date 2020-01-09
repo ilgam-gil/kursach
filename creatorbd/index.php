@@ -1,7 +1,7 @@
 <?php
 	$servername = "localhost";
-	$username = "root";
-	$password = "";
+	$username = "admin";
+	$password = "zaO0pU4F2UeejVf";
 	
 	$conn = mysqli_connect($servername, $username, $password);
 	
@@ -130,7 +130,7 @@
 	{
 		echo "Error: " . mysqli_error($conn);
 	}
-	
+	/*
 	//
 	//       ТРИГГЕРЫ УДАЛЕНИЯ
 	//
@@ -194,7 +194,7 @@
 	//триггер #5 удаление сервисов
 	$sql = "CREATE TRIGGER remove_services AFTER DELETE ON services
 			FOR EACH ROW BEGIN
-			   DELETE FROM maintenance_services WHERE id_maintenance_service = OLD.id_service;
+			   DELETE FROM maintenance_services WHERE id_maintenance_service = OLD.id_services;
 			END";
 
 	if (mysqli_query($conn, $sql))
@@ -241,7 +241,7 @@
 	//триггер #2 изменение машины
 	$sql = "CREATE TRIGGER update_cars AFTER UPDATE ON cars
 			FOR EACH ROW BEGIN
-			   UPDATE maintenance_services SET serviced_car = NEW.driver_license WHERE serviced_car = OLD.num_car;
+			   UPDATE maintenance_services SET serviced_car = NEW.num_car WHERE serviced_car = OLD.num_car;
 			END";
 
 	if (mysqli_query($conn, $sql))
@@ -283,7 +283,7 @@
 	//триггер #5 изменение сервисов
 	$sql = "CREATE TRIGGER update_services AFTER UPDATE ON services
 			FOR EACH ROW BEGIN
-			   UPDATE maintenance_services SET id_maintenance_service = NEW.id_service WHERE id_maintenance_service = OLD.id_service;
+			   UPDATE maintenance_services SET id_maintenance_service = NEW.id_services WHERE id_maintenance_service = OLD.id_services;
 			END";
 
 	if (mysqli_query($conn, $sql))
@@ -303,6 +303,90 @@
 	if (mysqli_query($conn, $sql))
 	{
 		echo "Trigger update_type_services created successfully!\n";
+	}
+	else
+	{
+		echo "Error: " . mysqli_error($conn);
+	}*/
+	
+	//
+	//      ИНДЕКСЫ
+	//
+	
+	//индекс #1 выборка обслуживающего сервиса
+	$sql = "CREATE INDEX index_maintenance_services ON maintenance_services(id_order, id_maintenance_service, type_service, serviced_car, availability_date, worker)";
+
+	if (mysqli_query($conn, $sql))
+	{
+		echo "Index index_maintenance_services created successfully!\n";
+	}
+	else
+	{
+		echo "Error: " . mysqli_error($conn);
+	}
+	//индекс #2 выборка владельца
+	$sql = "CREATE INDEX index_car_owners ON car_owners(driver_license, phone_number_car_owner)";
+
+	if (mysqli_query($conn, $sql))
+	{
+		echo "Index index_car_owners created successfully!\n";
+	}
+	else
+	{
+		echo "Error: " . mysqli_error($conn);
+	}
+	//индекс #3 выборка машины
+	$sql = "CREATE INDEX index_cars ON cars(num_car, car, car_owner)";
+
+	if (mysqli_query($conn, $sql))
+	{
+		echo "Index index_cars created successfully!\n";
+	}
+	else
+	{
+		echo "Error: " . mysqli_error($conn);
+	}
+	//индекс #4 выборка должности
+	$sql = "CREATE INDEX index_positions ON positions(id_position, classification_lvl)";
+
+	if (mysqli_query($conn, $sql))
+	{
+		echo "Index index_positions created successfully!\n";
+	}
+	else
+	{
+		echo "Error: " . mysqli_error($conn);
+	}
+	//индекс #5 выборка работника
+	$sql = "CREATE INDEX index_workers ON workers(id_worker, position, phone_number_worker)";
+
+	if (mysqli_query($conn, $sql))
+	{
+		echo "Index index_workers created successfully!\n";
+	}
+	else
+	{
+		echo "Error: " . mysqli_error($conn);
+	}
+	
+	//индекс #6 выборка сервисов
+	$sql = "CREATE INDEX index_services ON services(id_services, phone_number_service)";
+
+	if (mysqli_query($conn, $sql))
+	{
+		echo "Index index_services created successfully!\n";
+	}
+	else
+	{
+		echo "Error: " . mysqli_error($conn);
+	}
+	
+	//индекс #7 выборка услуг
+	$sql = "CREATE INDEX index_type_services ON type_services(id_type_service, price_type_service)";
+
+	if (mysqli_query($conn, $sql))
+	{
+		echo "Index index_type_services created successfully!\n";
 	}
 	else
 	{

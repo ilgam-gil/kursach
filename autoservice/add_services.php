@@ -5,7 +5,6 @@
 		header('location: index.php');
 	}
 	require_once 'connection.php';
-	
 	$conn = new mysqli($servername, $username, $password, $dbname);
 	$result =$conn->prepare("INSERT INTO services VALUES (NULL, ?, ?)");
 	$result->bind_param("ss", $_POST['service_adress'], $_POST['phone_number_service']);

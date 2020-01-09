@@ -5,7 +5,6 @@
 		header('location: index.php');
 	}
 	require_once 'connection.php';
-	
 	$conn = new mysqli($servername, $username, $password, $dbname);
 	$result =$conn->prepare("INSERT INTO maintenance_services VALUES (NULL, ?, ?, ?, ?, ?)");
 	$result->bind_param("sssss", $_POST['id_maintenance_service'], $_POST['type_service'], $_POST['serviced_car'], $_POST['availability_date'], $_POST['worker']);
